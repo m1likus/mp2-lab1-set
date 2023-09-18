@@ -11,28 +11,42 @@
 
 TBitField::TBitField(size_t len)
 {
-   
+    bitLen = len;
+    if (len % (sizeof(uint) * 8) != 0)
+        memLen = len / (sizeof(uint) * 8) + 1;
+    else
+        memLen = len / (sizeof(uint) * 8);
+    pMem = new uint[memLen];
+    memset(pMem, 0, memLen);
 }
 
 TBitField::TBitField(const TBitField &bf) // конструктор копирования
 {
-
+    bitLen = bf.bitLen;
+    memLen = bf.memLen;
+    pMem = new uint[memLen];
+    for (int i = 0; i < memLen; i++) {
+        pMem[i] = bf.pMem[i];
+    }
 }
 
 size_t TBitField::getIndex(const size_t n) const  // индекс в pМем для бита n
 {
-    return 0;
+    uint capacity = 8 * sizeof(pMem[0]);
+    uint indexBit = n / capacity;
+    return indexBit;
 }
 
 uint TBitField::getMask(const size_t n) const // битовая маска для бита n
 {
-    return 0;
+    uint mask = ~(1 << n);
+    return mask;
 }
 
 // доступ к битам битового поля
 uint TBitField::getLength() const // получить длину (к-во битов)
 {
-    return 0;
+    return bitLen;
 }
 
 size_t TBitField::getNumBytes() const // получить количество байт выделенной памяти
