@@ -203,10 +203,12 @@ TEST(TBitField, can_invert_bitfield)
     
     const size_t size = 2;
     TBitField bf(size), negBf(size), expNegBf(size);
-    // bf = 01
+    // bf = 10
     bf.setBit(1);
+    //std::cout << bf;
     negBf = ~bf;
-    // expNegBf = 10
+    //std::cout << negBf;
+    // expNegBf = 01
     expNegBf.setBit(0);
     EXPECT_EQ(expNegBf, negBf);
     
