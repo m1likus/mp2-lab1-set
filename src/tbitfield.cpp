@@ -139,7 +139,7 @@ TBitField TBitField::operator~() // отрицание
     //uint mask = ~0;
     uint mask = 0;
     for (int i = 0; i < bitLen % capacity; i++) {
-        mask += 1 << i;
+        mask  |= 1 << i;
     }
     //mask = 1 >> (bitLen % capacity);
     invert.pMem[memLen-1] = pMem[memLen-1] ^ mask;
