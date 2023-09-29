@@ -18,8 +18,8 @@ TBitField::TBitField(size_t len)
     else
         memLen = len / (sizeof(uint) * 8);
     pMem = new uint[memLen];
-    for (int i = 0; i < memLen; i++) pMem[i] = 0;
-    //memset(pMem, 0, memLen*sizeof(uint));
+    //for (int i = 0; i < memLen; i++) pMem[i] = 0;
+    memset(pMem, 0, memLen*sizeof(uint));
 }
 
 TBitField::TBitField(const TBitField &bf) // конструктор копирования
@@ -114,17 +114,41 @@ bool TBitField::operator!=(const TBitField &bf) const // сравнение
 
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
-    TBitField or (std::max(bitLen,bf.bitLen));
-    for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
+    //костыли на случай если дело все в max и min
+    uint mmax = 0, mmin = 0;
+    if (bitLen > bf.bitLen) {
+        mmax = bitLen;
+        mmin = bf.bitLen;
+    }
+    else {
+        mmax = bf.bitLen;
+        mmin = bitLen;
+    }
+    //TBitField or (std::max( bitLen,bf.bitLen ));
+    TBitField or (mmax);
+    //for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
+    for (int i = 0; i < mmin; i++) {
         or.pMem[i] = this->pMem[i] | bf.pMem[i];
     }
-    return or ;
+    return or;
 }
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
-    TBitField and (std::max(bitLen, bf.bitLen));
-    for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
+    //костыли на случай если дело все в max и min
+    uint mmax = 0,mmin =0;
+    if (bitLen > bf.bitLen) {
+        mmax = bitLen;
+        mmin = bf.bitLen;
+    }
+    else {
+        mmax = bf.bitLen;
+        mmin = bitLen;
+    }
+    //TBitField and (std::max(bitLen, bf.bitLen));
+    TBitField and (mmax);
+    //for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
+    for (int i = 0; i < mmin; i++){
         and.pMem[i] = this->pMem[i] & bf.pMem[i];
     }
     return and;
