@@ -115,7 +115,7 @@ bool TBitField::operator!=(const TBitField &bf) const // сравнение
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
     //костыли на случай если дело все в max и min
-    uint mmax = 0, mmin = 0;
+    /*uint mmax = 0, mmin = 0;
     if (bitLen > bf.bitLen) {
         mmax = bitLen;
         mmin = bf.bitLen;
@@ -123,11 +123,11 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
     else {
         mmax = bf.bitLen;
         mmin = bitLen;
-    }
-    //TBitField or (std::max( bitLen,bf.bitLen ));
-    TBitField or (mmax);
-    //for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
-    for (int i = 0; i < mmin; i++) {
+    }*/
+    TBitField or (std::max( bitLen,bf.bitLen ));
+    //TBitField or (mmax);
+    for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
+    //for (int i = 0; i < mmin; i++) {
         or.pMem[i] = this->pMem[i] | bf.pMem[i];
     }
     return or;
@@ -136,7 +136,7 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
     //костыли на случай если дело все в max и min
-    uint mmax = 0,mmin =0;
+    /*uint mmax = 0,mmin =0;
     if (bitLen > bf.bitLen) {
         mmax = bitLen;
         mmin = bf.bitLen;
@@ -144,11 +144,11 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
     else {
         mmax = bf.bitLen;
         mmin = bitLen;
-    }
-    //TBitField and (std::max(bitLen, bf.bitLen));
-    TBitField and (mmax);
-    //for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
-    for (int i = 0; i < mmin; i++){
+    }*/
+    TBitField and (std::max(bitLen, bf.bitLen));
+    //TBitField and (mmax);
+    for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
+    //for (int i = 0; i < mmin; i++){
         and.pMem[i] = this->pMem[i] & bf.pMem[i];
     }
     return and;
