@@ -8,7 +8,7 @@
 #include <limits>
 #include <iostream>
 #include "tbitfield.h"
-#include <algorithm>
+#include <string>
 
 TBitField::TBitField(size_t len)
 {
@@ -156,6 +156,12 @@ TBitField::~TBitField()
 // ввод/вывод
 std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
 {
+    std::string str;
+    size_t length;
+    istr >> str >> length;
+    bf.bitLen = length;
+    int capacity = 8 * sizeof(uint);
+    bf.memLen = (bf.getLength() / capacity);
     return istr;
 }
 
