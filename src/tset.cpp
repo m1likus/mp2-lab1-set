@@ -108,10 +108,20 @@ TSet TSet::operator~() // дополнение
 // перегрузка ввода/вывода
 std::istream &operator>>(std::istream &istr, TSet &s) // ввод
 {
+    std::string str;
+    size_t length;
+    istr >> length >> str;
+    s.maxPower = length;
+    for (int i = 0; i < str.size(); i++) 
+        s.insElem(str[i]);
     return istr;
 }
 
 std::ostream& operator<<(std::ostream &ostr, const TSet &s) // вывод
 {
+    ostr << "Size of set: " << s.maxPower << "\n";
+    int capacity = 8 * sizeof(uint);
+    for (int i = 0; i < s.maxPower; i++)
+        if (s.isMember(i)) ostr << i << " ";
     return ostr;
 }

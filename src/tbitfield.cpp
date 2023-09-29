@@ -158,7 +158,7 @@ std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
 {
     std::string str;
     size_t length;
-    istr >> str >> length;
+    istr >> length>> str;
     bf.bitLen = length;
     int capacity = 8 * sizeof(uint);
     bf.memLen = (bf.getLength() / capacity);
