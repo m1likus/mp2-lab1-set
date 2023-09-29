@@ -162,6 +162,8 @@ std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
     bf.bitLen = length;
     int capacity = 8 * sizeof(uint);
     bf.memLen = (bf.getLength() / capacity);
+    for (int i = 0; i < str.size(); i++)
+        if (bool(str[i])) bf.setBit(i);
     return istr;
 }
 
