@@ -125,13 +125,13 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
         mmax = bf.bitLen;
         mmin = bitLen;
     }*/
-    TBitField or (std::max( bitLen,bf.bitLen ));
+    TBitField orr (std::max( bitLen,bf.bitLen ));
     //TBitField or (mmax);
     for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
     //for (int i = 0; i < mmin; i++) {
-        or.pMem[i] = this->pMem[i] | bf.pMem[i];
+        orr.pMem[i] = this->pMem[i] | bf.pMem[i];
     }
-    return or;
+    return orr;
 }
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
@@ -146,13 +146,13 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
         mmax = bf.bitLen;
         mmin = bitLen;
     }*/
-    TBitField and (std::max(bitLen, bf.bitLen));
+    TBitField andd (std::max(bitLen, bf.bitLen));
     //TBitField and (mmax);
     for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
     //for (int i = 0; i < mmin; i++){
-        and.pMem[i] = this->pMem[i] & bf.pMem[i];
+        andd.pMem[i] = this->pMem[i] & bf.pMem[i];
     }
-    return and;
+    return andd;
 }
 
 TBitField TBitField::operator~() // отрицание
