@@ -38,7 +38,7 @@ TEST(TSet, can_delete_non_existing_element)
     const uint k = 3;
   TSet set(size);
   set.delElem(k);
-
+  //std::cout <<"set.isMember(k): "<< set.isMember(k) << std::endl;
   EXPECT_EQ(set.isMember(k), false);
 }
 
@@ -52,6 +52,7 @@ TEST(TSet, can_delete_existing_element)
     EXPECT_GT(set.isMember(k), false);
 
     set.delElem(k);
+    //dstd::cout <<"set.isMember(k): "<< set.isMember(k) << std::endl;
     EXPECT_EQ(set.isMember(k), false);
 }
 

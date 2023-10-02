@@ -33,6 +33,7 @@ TEST(TBitField, new_bitfield_is_set_to_zero)
         sum += static_cast<size_t>(bf.getBit(i));
 
     EXPECT_EQ(0, sum);
+    //std::cout << "sum: " <<  sum << std::endl;
 }
 
 TEST(TBitField, can_set_bit)
@@ -40,8 +41,9 @@ TEST(TBitField, can_set_bit)
     TBitField bf(10);
 
     EXPECT_EQ(false, bf.getBit(3));
-
+    //std::cout << "bf.getBit(3)??: " << bf.getBit(3) << std::endl;
     bf.setBit(3);
+    //std::cout << "bf.getBit(3)??: " << bf.getBit(3) << std::endl;
     EXPECT_NE(false, bf.getBit(3));
 }
 
@@ -49,12 +51,12 @@ TEST(TBitField, can_clear_bit)
 {
     TBitField bf(10);
     uint bitIdx = 3;
-
     bf.setBit(bitIdx);
     EXPECT_NE(false, bf.getBit(bitIdx));
-
+    //std::cout << "bf.getBit(3)??: " << bf.getBit(3) << std::endl;
     bf.clrBit(bitIdx);
     EXPECT_EQ(false, bf.getBit(bitIdx));
+    //std::cout << "bf.getBit(3)??: " << bf.getBit(3) << std::endl;
 }
 
 TEST(TBitField, throws_when_set_bit_with_too_large_index)
