@@ -78,7 +78,7 @@ bool TBitField::getBit(const size_t n) const // получить значени�
     uint pMemInd = pMem[getIndex(n)];
     uint mask = getMask(n);
     if (pMemInd & mask) return true;
-    else false;
+    else return false;
 }
 
 // битовые операции
