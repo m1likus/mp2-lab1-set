@@ -45,7 +45,7 @@ size_t TBitField::getIndex(const size_t n) const  // индекс в pМем д�
 
 uint TBitField::getMask(const size_t n) const // битовая маска для бита n
 {
-    int capacity = sizeof(pMem[0]) * 8;
+    uint capacity = sizeof(pMem[0]) * 8;
     uint mask = 1 << (n % capacity);
     return mask;
 }
@@ -76,7 +76,7 @@ void TBitField::clrBit(const size_t n) // очистить бит
 bool TBitField::getBit(const size_t n) const // получить значение бита
 {
     if (n > bitLen) throw(1);
-    if (pMem[getIndex(n)] & getMask(n)) return true;
+    else if (pMem[getIndex(n)] & getMask(n)) return true;
     else false;
 }
 
@@ -115,20 +115,8 @@ bool TBitField::operator!=(const TBitField &bf) const // сравнение
 
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
-    //костыли на случай если дело все в max и min
-    /*uint mmax = 0, mmin = 0;
-    if (bitLen > bf.bitLen) {
-        mmax = bitLen;
-        mmin = bf.bitLen;
-    }
-    else {
-        mmax = bf.bitLen;
-        mmin = bitLen;
-    }*/
     TBitField orr (std::max( bitLen,bf.bitLen ));
-    //TBitField or (mmax);
     for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
-    //for (int i = 0; i < mmin; i++) {
         orr.pMem[i] = this->pMem[i] | bf.pMem[i];
     }
     return orr;
@@ -136,20 +124,8 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
-    //костыли на случай если дело все в max и min
-    /*uint mmax = 0,mmin =0;
-    if (bitLen > bf.bitLen) {
-        mmax = bitLen;
-        mmin = bf.bitLen;
-    }
-    else {
-        mmax = bf.bitLen;
-        mmin = bitLen;
-    }*/
     TBitField andd (std::max(bitLen, bf.bitLen));
-    //TBitField and (mmax);
     for (int i = 0; i < std::min(memLen, bf.memLen); i++) {
-    //for (int i = 0; i < mmin; i++){
         andd.pMem[i] = this->pMem[i] & bf.pMem[i];
     }
     return andd;
@@ -162,12 +138,10 @@ TBitField TBitField::operator~() // отрицание
     for (int i = 0; i < memLen-1; i++) {
         invert.pMem[i] = ~pMem[i];
     }
-    //uint mask = ~0;
     uint mask = 0;
     for (int i = 0; i < bitLen % capacity; i++) {
         mask  |= 1 << i;
     }
-    //mask = 1 >> (bitLen % capacity);
     invert.pMem[memLen-1] = pMem[memLen-1] ^ mask;
     return invert;
 }
@@ -186,7 +160,7 @@ std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
     size_t length;
     istr >> length>> str;
     bf.bitLen = length;
-    int capacity = 8 * sizeof(uint);
+    uint capacity = 8 * sizeof(uint);
     bf.memLen = (bf.getLength() / capacity);
     for (int i = 0; i < str.size(); i++)
         if (bool(str[i])) bf.setBit(i);
@@ -198,7 +172,7 @@ std::ostream &operator<<(std::ostream &ostr, const TBitField &bf) // вывод
     ostr << "Length of bit field: " << bf.getLength() << "\n";
     ostr << "Length of array of bit field: " << bf.getIndex(bf.getLength())+1 << "\n";
     ostr << "Bit field: \n";
-    int capacity = 8 * sizeof(bf.pMem[0]);
+    uint capacity = 8 * sizeof(bf.pMem[0]);
     for (int i = 0; i < bf.getIndex(bf.getLength()); i++) {
         for (int j = 0; j < bf.getLength() % capacity;j++) {
             ostr << bf.getBit(j);

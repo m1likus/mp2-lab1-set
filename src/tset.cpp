@@ -120,7 +120,7 @@ std::istream &operator>>(std::istream &istr, TSet &s) // ввод
 std::ostream& operator<<(std::ostream &ostr, const TSet &s) // вывод
 {
     ostr << "Size of set: " << s.maxPower << "\n";
-    int capacity = 8 * sizeof(uint);
+    uint capacity = 8 * sizeof(uint);
     for (int i = 0; i < s.maxPower; i++)
         if (s.isMember(i)) ostr << i << " ";
     return ostr;
