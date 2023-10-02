@@ -19,7 +19,8 @@ TBitField::TBitField(size_t len)
         memLen = len / (sizeof(uint) * 8);
     pMem = new uint[memLen];
     //for (int i = 0; i < memLen; i++) pMem[i] = 0;
-    memset(pMem, 0, memLen*sizeof(uint));
+    //memset(pMem, 0, memLen*sizeof(uint));
+    std::fill(pMem[0], pMem[memLen], 0);
 }
 
 TBitField::TBitField(const TBitField &bf) // конструктор копирования
