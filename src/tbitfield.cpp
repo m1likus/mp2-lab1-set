@@ -9,6 +9,7 @@
 #include <iostream>
 #include "tbitfield.h"
 #include <string>
+#include <cstring>
 
 TBitField::TBitField(size_t len)
 {
@@ -19,8 +20,8 @@ TBitField::TBitField(size_t len)
         memLen = len / (sizeof(uint) * 8);
     pMem = new uint[memLen];
     //for (int i = 0; i < memLen; i++) pMem[i] = 0;
-    //memset(pMem, 0, memLen*sizeof(uint));
-    std::fill(pMem[0], pMem[memLen], 0);
+    memset(pMem, 0, memLen*sizeof(uint));
+    //std::fill(pMem[0], pMem[memLen], 0);
 }
 
 TBitField::TBitField(const TBitField &bf) // конструктор копирования
@@ -174,7 +175,7 @@ std::ostream &operator<<(std::ostream &ostr, const TBitField &bf) // вывод
     ostr << "Bit field: \n";
     uint capacity = 8 * sizeof(bf.pMem[0]);
     for (int i = 0; i < bf.getIndex(bf.getLength()); i++) {
-        for (int j = 0; j < bf.getLength() % capacity;j++) {
+        for (int j = 0; j < (bf.getLength() % capacity);j++) {
             ostr << bf.getBit(j);
         }
     }
