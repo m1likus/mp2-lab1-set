@@ -19,8 +19,6 @@ TBitField::TBitField(size_t len)
     else
         memLen = len / (sizeof(uint) * 8);
     pMem = new uint[memLen];
-    //for (int i = 0; i < memLen; i++) pMem[i] = 0;
-    //memset(pMem, 0, memLen*sizeof(uint));
     std::fill(&pMem[0], &pMem[memLen-1]+1, 0);
 }
 
@@ -36,7 +34,7 @@ TBitField::TBitField(const TBitField &bf) // конструктор копиро
 
 size_t TBitField::getIndex(const size_t n) const  // индекс в pМем для бита n
 {
-    if (n > bitLen) throw(1);
+    if (n >= bitLen) throw(1);
     else {
         uint capacity = 8 * sizeof(pMem[0]);
         size_t indexBit = (n / capacity);
@@ -64,22 +62,22 @@ size_t TBitField::getNumBytes() const // получить количество �
 
 void TBitField::setBit(const size_t n) // установить бит
 {
-    if (n > bitLen) throw(1);
+    if (n >= bitLen) throw(1);
     pMem[getIndex(n)] |= getMask(n);
 }
 
 void TBitField::clrBit(const size_t n) // очистить бит
 {
-    if (n > bitLen) throw(1);
+    if (n >= bitLen) throw(1);
     pMem[getIndex(n)] &= ~getMask(n);
 }
 
 bool TBitField::getBit(const size_t n) const // получить значение бита
 {
-    if (n > bitLen) throw(1);
+    if (n >= bitLen) throw(1);
     uint pMemInd = pMem[getIndex(n)];
     uint mask = getMask(n);
-    if(pMemInd & mask) return true;
+    if (pMemInd & mask) return true;
     else false;
 }
 
