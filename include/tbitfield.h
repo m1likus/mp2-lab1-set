@@ -8,7 +8,7 @@
 #pragma once
 #include <iosfwd>
 
-typedef size_t uint;
+typedef unsigned int uint;
 
 class TBitField
 {
